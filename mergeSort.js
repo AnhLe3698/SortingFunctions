@@ -7,8 +7,6 @@ const mergeSort = function(arr) {
   const index = Math.floor(arr.length / 2);
   let leftArray = arr.slice(0, index);
   let rightArray = arr.slice(index, arr.length);
-  console.log(leftArray);
-  console.log(rightArray);
   return merge(mergeSort(leftArray), mergeSort(rightArray));
 };
 
@@ -31,4 +29,8 @@ const merge = function(leftArray, rightArray) {
   return mergedArrays.concat(leftArray.slice(leftIndex)).concat(rightArray.slice(rightIndex));
 };
 
+/*
 console.log(mergeSort([0, 13, 26, 5, 8, 17]));
+*/
+
+module.exports = mergeSort;
