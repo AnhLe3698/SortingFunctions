@@ -1,0 +1,34 @@
+CREATE TABLE SalesPerson {
+  sales_id INTEGER PRIMARY KEY NOT NULL,
+  name VARCHAR(255),
+  salary INTEGER,
+  commission_rate INTEGER,
+  hire_date DATE,
+}
+
+CREATE TABLE company {
+  com_id INTEGER PRIMARY KEY NOT NULL,
+  name VARCHAR(255),
+  city VARCHAR(255)
+}
+
+CREATE TABLE orders {
+  order_id INTEGER PRIMARY KEY NOT NULL,
+  order_date DATE,
+  com_id INTEGER,
+  sales_id INTEGER,
+  amount INTEGER
+}
+
+SELECT SalesPerson.name FROM orders
+LEFT JOIN SalesPerson ON SalesPerson.sales_id = orders.sales_id
+LEFT JOIN company on company.com_id = orders.com_id
+WHERE company.name <> "RED" AND 
+
+SELECT SalesPerson.name FROM SalesPerson
+LEFT JOIN
+(SELECT sales_id, count(orders.order_id) as total from orders 
+LEFT JOIN company ON company.com_id = orders.com_id
+where company.name = "RED" group by sales_id ) AS a
+ON a.sales_id = SalesPerson.sales_id
+WHERE a.total is NULL;
