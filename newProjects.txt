@@ -1,0 +1,8 @@
+https://www.youtube.com/watch?v=42N6dN5GEA8&t=184s
+- Natural Language Processing (node-natural language Processing)
+- Auto-emailer
+- To do List
+- Job Searching APP Adzuna jobs API
+- Build your own zoom
+- Collaborative Drawing App using Socket.io
+- Web Scraper using Cheerio or Puppeteer plugins
