@@ -1,0 +1,63 @@
+// Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.
+
+// Note: You must not use any built-in BigInteger library or convert the inputs to integer directly.
+
+
+
+/**
+ * @param {string} num1
+ * @param {string} num2
+ * @return {string}
+ */
+var multiply = function(num1, num2) {
+    const numba = {
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "4": 4,
+      "5": 5,
+      "6": 6,
+      "7": 7,
+      "8": 8,
+      "9": 9,
+      "0": 0,
+      
+
+    }
+    const placement = {
+      0: [],
+    }
+    let total = '';
+    for(let i = num1.length; i > 0; i--) {
+      for(let j = num2.length; j > 0; j--) {
+        if (placement[num1.length - i + num2.length - j ] === undefined) {
+          placement[num1.length - i + num2.length - j ] = [];
+          placement[num1.length - i + num2.length - j ].push(numba[`${num1[i - 1]}`]*numba[`${num2[j - 1]}`])
+        } else {
+          placement[num1.length - i + num2.length - j ].push(numba[`${num1[i - 1]}`]*numba[`${num2[j - 1]}`])
+        }
+      }
+    }
+    
+    for (const index of Object.keys(placement)) {
+      let subTotal = 0;
+      placement[index].forEach(element => {
+        subTotal += element;
+      });
+      total = subTotal % 10 + total;
+      if(numba[index] === undefined) {
+        numba[index] = parseInt(index);
+      }
+      if (placement[numba[index] + 1]) {
+        placement[numba[index] + 1].push((subTotal - subTotal % 10) / 10);
+      } else if (subTotal > 9) {
+        placement[numba[index] + 1] = [];
+        placement[numba[index] + 1].push((subTotal - subTotal % 10) / 10);
+        total = (subTotal - subTotal % 10) / 10 + total;
+      }
+    }
+    
+    return total.split('0').join('') === '' ? '0' : total;
+};
+
+console.log(multiply('498828660196', '840477629533'));
