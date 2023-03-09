@@ -1,0 +1,100 @@
+/**
+ * @param {number} num
+ * @return {string}
+ */
+
+//  I             1
+//  V             5
+//  X             10
+//  L             50
+//  C             100
+//  D             500
+//  M             1000
+
+var intToRoman = function(num) {
+    let roman = '';
+    let remainder = num % 1000;
+
+    //Handle remainder > 1000
+    if (num - num % 1000 >= 0) {
+      for(let i = 0; i < (num - num % 1000) / 1000; i++) {
+        roman += 'M';
+      }
+    }
+    //Handle remainder >= 500
+    if (remainder > 499) {
+      if(remainder >= 900) {
+        roman += 'CM'
+        remainder -= 900;
+      } else {
+        roman += 'D'
+        remainder -= 500;
+      }
+      
+    }
+    // Handle 100 < remainder < 1000
+    if(remainder >= 100) {
+      if((remainder - remainder % 100) / 100 === 4) {
+        roman += 'CD'
+      } else {
+        for(let i = 0; i < (remainder - remainder % 100) / 100; i++) {
+          roman += 'C';
+        }
+        
+      }
+      remainder = remainder % 100;
+    }
+
+    if (remainder > 49) {
+      if (remainder >= 90) {
+        roman += 'XC'
+        remainder -= 90;
+      } else {
+        roman += 'L'
+        remainder -= 50;
+      }
+      
+    }
+
+    // Handle 10 < remainder < 50
+    if(remainder >= 10) {
+      if((remainder - remainder % 10) / 10 === 4) {
+        roman += 'XL'
+      } else {
+        for(let i = 0; i < (remainder - remainder % 10) / 10; i++) {
+          roman += 'X';
+        }
+        
+      }
+      remainder = remainder % 10;
+    }
+
+    if (remainder > 4) {
+      if (remainder === 9) {
+        roman += 'IX'
+        remainder -= 9;
+      } else {
+        roman += 'V'
+        remainder -= 5;
+      }
+      
+    }
+
+    // Handle 10 < remainder < 50
+    if(remainder > 0) {
+      if(remainder ===  4) {
+        roman += 'IV'
+      } else {
+        for(let i = 0; i < remainder; i++) {
+          roman += 'I';
+        }
+        
+      }
+      remainder = 0;
+    }
+
+    return roman;
+};
+
+console.log(intToRoman(1000));
+// M CM XC IV
