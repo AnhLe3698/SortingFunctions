@@ -9,6 +9,7 @@
  * @param {string} num2
  * @return {string}
  */
+//O(mn) 
 var multiply = function(num1, num2) {
     const numba = {
       "1": 1,
@@ -58,6 +59,36 @@ var multiply = function(num1, num2) {
     }
     
     return total.split('0').join('') === '' ? '0' : total;
+};
+
+//O(max(m, n)).
+var multiply2 = function(num1, num2) {
+  const numba = {};
+  for (let i = 0; i < 10; i++) {
+      numba[i.toString()] = i;
+  }
+  
+  
+  const placement = {};
+  let carry = 0;
+  for (let i = num1.length - 1; i >= 0; i--) {
+      for (let j = num2.length - 1; j >= 0; j--) {
+          const product = numba[num1[i]] * numba[num2[j]] + (placement[i + j + 1] || 0) + carry;
+          placement[i + j + 1] = product % 10;
+          carry = Math.floor(product / 10);
+      }
+      if (carry > 0) {
+          placement[i] = carry;
+          carry = 0;
+      }
+  }
+  
+  let total = '';
+  for (let i = 0; i < num1.length + num2.length; i++) {
+      total += placement[i] || '0';
+  }
+  
+  return total.replace(/^0+/, '') || '0';
 };
 
 console.log(multiply('498828660196', '840477629533'));

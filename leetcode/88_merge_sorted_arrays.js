@@ -34,29 +34,55 @@
 // The result of the merge is [1].
 // Note that because m = 0, there are no elements in nums1. The 0 is only there to ensure the merge result can fit in nums1.
 
+//O((m+n)^2) 
+// var merge = function(nums1, m, nums2, n) {
+
+
+//   for(let j = 0; j < n; j++){
+//     let carrier = 0;
+//     for(let i = 0; i < m + n; i++) {
+//       if(nums2[j] < nums1[i] && carrier === 0) {
+//         carrier = nums1[i];
+//         nums1[i] = nums2[j];
+//         nums2[j] = carrier;
+//         console.log(carrier);
+//       } else if (carrier !== 0 && nums1[i] !== 0 ) {
+//         carrier = nums1[i];
+//         nums1[i] = nums2[j];
+//         nums2[j] = carrier;
+//         console.log(carrier);
+//       } else if (i === m + j && nums1[i] === 0) {
+//         nums1[i] = nums2[j];
+//       }
+//     }
+//   }
+//   console.log(nums1)
+  
+// };
+
+//O(m+n) 
 var merge = function(nums1, m, nums2, n) {
+  // Last Index of arrays
+  let i = m - 1, j = n - 1, k = m + n - 1;
 
-
-  for(let j = 0; j < n; j++){
-    let carrier = 0;
-    for(let i = 0; i < m + n; i++) {
-      if(nums2[j] < nums1[i] && carrier === 0) {
-        carrier = nums1[i];
-        nums1[i] = nums2[j];
-        nums2[j] = carrier;
-        console.log(carrier);
-      } else if (carrier !== 0 && nums1[i] !== 0 ) {
-        carrier = nums1[i];
-        nums1[i] = nums2[j];
-        nums2[j] = carrier;
-        console.log(carrier);
-      } else if (i === m + j && nums1[i] === 0) {
-        nums1[i] = nums2[j];
-      }
+  // Iterate over both arrays from right to left
+  while (i >= 0 && j >= 0) {
+    // Find the biggest entry and sort it to the k-- entry
+    if (nums1[i] > nums2[j]) {
+      
+      nums1[k--] = nums1[i--];
+      console.log(i, ' ', j, ' ', k, ' ',nums1[k])
+    } else {
+      
+      nums1[k--] = nums2[j--];
+      console.log(i, ' ', j, ' ', k, ' ',nums1[k])
     }
   }
-  console.log(nums1)
-  
+
+  while (j >= 0) {
+    nums1[k--] = nums2[j--];
+  }
+  console.log(nums1);
 };
 
-merge([1,2,4,0,0,0], 3, [1, 3, 8], 3)
+merge([1,2,3,0,0,0], 3, [2,5,6], 3)
